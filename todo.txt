@@ -11,7 +11,7 @@
 [X] Shrink enemies on hit
 [X] Create particle explosion on hit
 
-[ ] Add score
-[ ] Add score
-[ ] Add game over ui
+[X] Add score
+[ ] Add game over UI
+[ ] Add restart button
 [ ] Add start game button

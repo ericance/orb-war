@@ -1,9 +1,11 @@
 const canvas = document.querySelector('canvas');
+var ctx = canvas.getContext("2d");
 
 canvas.width = innerWidth
 canvas.height = innerHeight
 
-var ctx = canvas.getContext("2d");
+const scoreElement = document.querySelector('#scoreElement')
+
 
 class Player {
 	constructor(x, y, radius, color) {
@@ -131,6 +133,7 @@ function spawnEnemies() {
 }
 
 let animationId
+let score = 0
 function animate() {
 	animationId = requestAnimationFrame(animate)
 	ctx.fillStyle = 'rgba(0,0,0,.1)'
@@ -176,6 +179,10 @@ function animate() {
 
 			// when projectiles touch enemy
 			if (dist - enemy.radius - projectile.radius < 1) {
+				// increase our score
+				score += 100
+				scoreElement.textContent = score
+				console.log(score)
 				// create explosions
 				for (let i = 0; i < enemy.radius; i++) {
 					particles.push(
@@ -185,9 +192,12 @@ function animate() {
 							y: (Math.random() - 0.5) * (Math.random() * 8),
 						}))
 
-					console.log(particles)
 				}
 				if (enemy.radius - 10 > 10) {
+
+					score += 100
+					scoreElement.textContent = score
+
 					gsap.to(enemy, {
 						radius: enemy.radius - 10
 					})
@@ -195,6 +205,9 @@ function animate() {
 						projectiles.splice(projectileIndex, 1)
 					}, 0);
 				} else {
+					// remove from scene
+					score += 250
+					scoreElement.textContent = score
 					setTimeout(() => {
 						enemies.splice(index, 1)
 						projectiles.splice(projectileIndex, 1)
@@ -206,7 +219,6 @@ function animate() {
 }
 
 addEventListener('click', (object) => {
-	console.log(projectiles)
 	const angle = Math.atan2(
 		object.clientY - canvas.height / 2,
 		object.clientX - canvas.width / 2
