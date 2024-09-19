@@ -3,7 +3,7 @@
 [X] Shoot projectiles
 [X] Create enemies
 
-[ ] Detect collision on enemy / projectile hit
+[X] Detect collision on enemy / projectile hit
 [ ] Detect collision on enemy / player hit
 [ ] Remove off screen projectiles
 
