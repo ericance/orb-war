@@ -8,8 +8,8 @@
 [X] Remove off screen projectiles
 
 [X] Colorize game
-[ ] Shrink enemies on hit
-[ ] Create particle explosion on hit
+[X] Shrink enemies on hit
+[X] Create particle explosion on hit
 
 [ ] Add score
 [ ] Add score
