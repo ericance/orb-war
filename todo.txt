@@ -4,10 +4,10 @@
 [X] Create enemies
 
 [X] Detect collision on enemy / projectile hit
-[ ] Detect collision on enemy / player hit
-[ ] Remove off screen projectiles
+[X] Detect collision on enemy / player hit
+[X] Remove off screen projectiles
 
-[ ] Colorize game
+[X] Colorize game
 [ ] Shrink enemies on hit
 [ ] Create particle explosion on hit
 
