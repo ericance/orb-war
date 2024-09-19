@@ -1,7 +1,7 @@
 # TODO
 [X] Create a player
 [X] Shoot projectiles
-[ ] Create enemies
+[X] Create enemies
 
 [ ] Detect collision on enemy / projectile hit
 [ ] Detect collision on enemy / player hit
