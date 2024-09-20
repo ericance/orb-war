@@ -4,8 +4,10 @@ var ctx = canvas.getContext("2d");
 canvas.width = innerWidth
 canvas.height = innerHeight
 
-const scoreElement = document.querySelector('#scoreElement')
-
+const scoreElement = document.querySelector('#scoreElement');
+const startGameBtn = document.querySelector('#startGameBtn');
+const modalElement = document.querySelector('#modalElement')
+const bigScoreElement = document.querySelector('#bigScoreElement')
 
 class Player {
 	constructor(x, y, radius, color) {
@@ -100,10 +102,23 @@ class Particle {
 	}
 }
 
-const player = new Player(canvas.width / 2, canvas.height / 2, 30, '#fff')
-const projectiles = []
-const particles = []
-const enemies = []
+const x = canvas.width / 2
+const y = canvas.height / 2
+
+let player = new Player(x, y, 30, '#fff')
+let projectiles = []
+let particles = []
+let enemies = []
+
+function init() {
+	player = new Player(x, y, 30, '#fff')
+	projectiles = []
+	particles = []
+	enemies = []
+	score = 0
+	bigScoreElement.textContent = score;
+	scoreElement.textContent = score;
+}
 
 function spawnEnemies() {
 	setInterval(() => {
@@ -171,6 +186,8 @@ function animate() {
 		// end game
 		if (dist - enemy.radius - player.radius < 1) {
 			cancelAnimationFrame(animationId)
+			modalElement.style.display = 'flex'
+			bigScoreElement.textContent = score
 		}
 
 		projectiles.forEach((projectile, projectileIndex) => {
@@ -182,7 +199,6 @@ function animate() {
 				// increase our score
 				score += 100
 				scoreElement.textContent = score
-				console.log(score)
 				// create explosions
 				for (let i = 0; i < enemy.radius; i++) {
 					particles.push(
@@ -232,5 +248,9 @@ addEventListener('click', (object) => {
 	)
 })
 
-animate()
-spawnEnemies()
+startGameBtn.addEventListener('click', () => {
+	init()
+	animate()
+	spawnEnemies()
+	modalElement.style.display = 'none'
+})

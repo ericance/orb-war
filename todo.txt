@@ -12,6 +12,6 @@
 [X] Create particle explosion on hit
 
 [X] Add score
-[ ] Add game over UI
-[ ] Add restart button
-[ ] Add start game button
+[X] Add start game button
+[X] Add game over UI
+[X] Add restart button
