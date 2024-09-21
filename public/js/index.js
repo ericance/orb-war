@@ -11,14 +11,19 @@ const scoreElement = document.querySelector('#scoreElement');
 const x = canvas.width / 2
 const y = canvas.height / 2
 
-const player = new Player(x, y, 20, '#fff')
 const players = {}
+
 socket.on('updatePlayers', (backendPlayers) => {
 	for (const id in backendPlayers) {
 		const backendPlayer = backendPlayers[id]
 
 		if (!players[id]) {
-			players[id] = new Player(backendPlayer.x, backendPlayer.y, 20, '#fff')
+			players[id] = new Player({
+				x: backendPlayer.x,
+				y: backendPlayer.y,
+				radius: 20,
+				color: 'hsl(0, 100%, 50%)'
+			})
 		}
 	}
 
