@@ -15,14 +15,14 @@ const frontEndPlayers = {}
 
 socket.on('updatePlayers', (backEndPlayers) => {
 	for (const id in backEndPlayers) {
-		const backendPlayer = backEndPlayers[id]
+		const backEndPlayer = backEndPlayers[id]
 
 		if (!frontEndPlayers[id]) {
 			frontEndPlayers[id] = new Player({
-				x: backendPlayer.x,
-				y: backendPlayer.y,
+				x: backEndPlayer.x,
+				y: backEndPlayer.y,
 				radius: 20,
-				color: 'hsl(0, 100%, 50%)'
+				color: backEndPlayer.color
 			})
 		}
 	}
