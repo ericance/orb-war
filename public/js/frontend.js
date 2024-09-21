@@ -3,10 +3,11 @@ var ctx = canvas.getContext("2d");
 
 const socket = io()
 
-canvas.width = innerWidth
-canvas.height = innerHeight
+const devicePixelRatio = window.devicePixelRatio || 1
+const scoreElement = document.querySelector('#scoreElement')
 
-const scoreElement = document.querySelector('#scoreElement');
+canvas.width = innerWidth * devicePixelRatio
+canvas.height = innerHeight * devicePixelRatio
 
 const x = canvas.width / 2
 const y = canvas.height / 2
@@ -21,7 +22,7 @@ socket.on('updatePlayers', (backEndPlayers) => {
 			frontEndPlayers[id] = new Player({
 				x: backEndPlayer.x,
 				y: backEndPlayer.y,
-				radius: 20,
+				radius: 10,
 				color: backEndPlayer.color
 			})
 		}
