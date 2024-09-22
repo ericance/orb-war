@@ -26,8 +26,28 @@ socket.on('updatePlayers', (backEndPlayers) => {
 				color: backEndPlayer.color
 			})
 		} else {
-			frontEndPlayers[id].x = backEndPlayer.x
-			frontEndPlayers[id].y = backEndPlayer.y
+			if (id === socket.id) {
+				frontEndPlayers[id].x = backEndPlayer.x
+				frontEndPlayers[id].y = backEndPlayer.y
+
+				const lastBackendInputIndex = playerInputs.findIndex((input) => {
+					return backEndPlayer.sequenceNumber === input.sequenceNumber
+				})
+				if (lastBackendInputIndex > -1)
+					playerInputs.splice(0, lastBackendInputIndex + 1)
+
+				playerInputs.forEach((input) => {
+					frontEndPlayers[id].x += input.dx
+					frontEndPlayers[id].y += input.dy
+				})
+			} else {
+				gsap.to(frontEndPlayers[id], {
+					x: backEndPlayer.x,
+					y: backEndPlayer.y,
+					duration: 0.015,
+					ease: 'linear',
+				})
+			}
 		}
 	}
 
@@ -68,25 +88,32 @@ const keys = {
 }
 
 const SPEED = 10
+const playerInputs = []
+let sequenceNumber = 0
 setInterval(() => {
 	if (keys.w.pressed) {
+		sequenceNumber++
+		playerInputs.push({ sequenceNumber, dx: 0, dy: -SPEED })
 		frontEndPlayers[socket.id].y -= SPEED
-		socket.emit('keydown', 'KeyW')
+		socket.emit('keydown', { keycode: 'KeyW', sequenceNumber })
 	}
-
 	if (keys.a.pressed) {
+		sequenceNumber++
+		playerInputs.push({ sequenceNumber, dx: -SPEED, dy: 0 })
 		frontEndPlayers[socket.id].x -= SPEED
-		socket.emit('keydown', 'KeyA')
+		socket.emit('keydown', { keycode: 'KeyA', sequenceNumber })
 	}
-
 	if (keys.s.pressed) {
+		sequenceNumber++
+		playerInputs.push({ sequenceNumber, dx: 0, dy: SPEED })
 		frontEndPlayers[socket.id].y += SPEED
-		socket.emit('keydown', 'KeyS')
+		socket.emit('keydown', { keycode: 'KeyS', sequenceNumber })
 	}
-
 	if (keys.d.pressed) {
+		sequenceNumber++
+		playerInputs.push({ sequenceNumber, dx: SPEED, dy: 0 })
 		frontEndPlayers[socket.id].x += SPEED
-		socket.emit('keydown', 'KeyD')
+		socket.emit('keydown', { keycode: 'KeyD', sequenceNumber })
 	}
 }, 15)
 
