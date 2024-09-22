@@ -6,8 +6,8 @@ const socket = io()
 const devicePixelRatio = window.devicePixelRatio || 1
 const scoreElement = document.querySelector('#scoreElement')
 
-canvas.width = innerWidth * devicePixelRatio
-canvas.height = innerHeight * devicePixelRatio
+canvas.width = innerWidth
+canvas.height = innerHeight
 
 const x = canvas.width / 2
 const y = canvas.height / 2
@@ -25,6 +25,9 @@ socket.on('updatePlayers', (backEndPlayers) => {
 				radius: 10,
 				color: backEndPlayer.color
 			})
+		} else {
+			frontEndPlayers[id].x = backEndPlayer.x
+			frontEndPlayers[id].y = backEndPlayer.y
 		}
 	}
 
@@ -45,7 +48,28 @@ function animate() {
 		const player = frontEndPlayers[id]
 		player.draw()
 	}
-
 }
 
 animate()
+
+window.addEventListener('keydown', (event) => {
+	if (!frontEndPlayers[socket.id]) return
+	switch (event.code) {
+		case 'KeyW':
+			frontEndPlayers[socket.id].y -= 5
+			socket.emit('keydown', 'KeyW')
+			break
+		case 'KeyA':
+			frontEndPlayers[socket.id].x -= 5
+			socket.emit('keydown', 'KeyA')
+			break
+		case 'KeyS':
+			frontEndPlayers[socket.id].y += 5
+			socket.emit('keydown', 'KeyS')
+			break
+		case 'KeyD':
+			frontEndPlayers[socket.id].x += 5
+			socket.emit('keydown', 'KeyD')
+			break
+	}
+})
