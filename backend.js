@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
 
 setInterval(() => {
 	io.emit('updatePlayers', backEndPlayers)
-}, 100)
+}, 15)
 
 server.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)
