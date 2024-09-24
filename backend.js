@@ -69,7 +69,6 @@ io.on('connection', (socket) => {
 		}
 	})
 
-	console.log(backEndPlayers)
 });
 
 // backend ticker
@@ -80,7 +79,7 @@ setInterval(() => {
 		backEndProjectiles[id].x += backEndProjectiles[id].velocity.x
 		backEndProjectiles[id].y += backEndProjectiles[id].velocity.y
 	}
-	io.emit('updateProjectiles', backEndPlayers)
+	io.emit('updateProjectiles', backEndProjectiles)
 	io.emit('updatePlayers', backEndPlayers)
 }, 15)
 
