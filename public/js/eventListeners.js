@@ -27,5 +27,4 @@ addEventListener('click', (event) => {
 	// 	})
 	// )
 
-	console.log(frontEndProjectiles)
 })

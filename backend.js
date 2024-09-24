@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
 			x, y, velocity, playerId: socket.id
 		}
 
-		console.log(backEndProjectiles)
+		// console.log(backEndProjectiles)
 	})
 
 	socket.on('disconnect', (reason) => {
