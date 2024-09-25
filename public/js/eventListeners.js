@@ -3,9 +3,10 @@ addEventListener('click', (event) => {
 		x: frontEndPlayers[socket.id].x,
 		y: frontEndPlayers[socket.id].y
 	}
+
 	const angle = Math.atan2(
-		event.clientY * window.devicePixelRatio - playerPosition.y,
-		event.clientX * window.devicePixelRatio - playerPosition.x
+		event.clientY - playerPosition.y,
+		event.clientX - playerPosition.x
 	)
 	// const velocity = {
 	//   x: Math.cos(angle) * 5,
@@ -16,6 +17,8 @@ addEventListener('click', (event) => {
 		y: playerPosition.y,
 		angle
 	})
+
+
 
 	// frontEndProjectiles.push(
 	// 	new Projectile({
