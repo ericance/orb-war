@@ -107,9 +107,14 @@ setInterval(() => {
 		for (const playerId in backEndPlayers) {
 			const backEndPlayer = backEndPlayers[playerId]
 
+			if (!backEndProjectiles[id] || typeof backEndProjectiles[id].x === undefined || typeof backEndProjectiles[id].y === undefined) {
+				continue
+			}
+
 			if (!backEndPlayer || typeof backEndPlayer.x === undefined || typeof backEndPlayer.y === undefined) {
 				continue
 			}
+
 
 			const DISTANCE = Math.hypot(
 				backEndProjectiles[id].x - backEndPlayer.x,
